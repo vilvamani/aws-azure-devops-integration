@@ -26,7 +26,7 @@ steps:
     awsCredentials: 'AWSReadOnly'
     regionName: 'us-east-1'
     scriptType: 'inline'
-    inlineScript: 'aws s3 ls'
+    inlineScript: 'aws cloudformation create-stack --stack-name myteststack --template-body file://s3.yaml'
     disableAutoCwd: true
     workingDirectory: '$(System.DefaultWorkingDirectory)'
     failOnStandardError: false
