@@ -26,7 +26,7 @@ steps:
     awsCredentials: 'AWSReadOnly'
     regionName: 'us-east-1'
     scriptType: 'inline'
-    inlineScript: 'cdk deploy --ci --require-approval never'
+    inlineScript: 'aws s3 ls'
     disableAutoCwd: true
     workingDirectory: '$(System.DefaultWorkingDirectory)'
     failOnStandardError: false
