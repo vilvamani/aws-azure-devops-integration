@@ -17,7 +17,7 @@ steps:
 
 - script: |
     ls -l
-  displayName: 'npm install and build'
+  displayName: 'ListFiles'
 - task: AWSShellScript@1
   inputs:
     awsCredentials: 'AWSReadOnly'
@@ -27,5 +27,5 @@ steps:
     disableAutoCwd: true
     workingDirectory: '$(System.DefaultWorkingDirectory)'
     failOnStandardError: false
-  displayName: 'ListFiles'
+  displayName: 'AWSCloudFormationDeploy'
 
