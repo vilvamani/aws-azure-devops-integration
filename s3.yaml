@@ -30,12 +30,12 @@ Parameters:
     Type: String
 
 Resources:
-  ReplicationDestinationBucket:
+  ReplicationSourceBucket:
     Type: AWS::S3::Bucket
     Description: AWS S3 Bucket Replication
     DeletionPolicy: Delete
     Properties:
-      BucketName: !Sub "${StackEnv}-replication-destination-bucket"
+      BucketName: !Sub "${StackEnv}-replication-bucket"
       AccessControl: Private
       BucketEncryption:
         ServerSideEncryptionConfiguration:
