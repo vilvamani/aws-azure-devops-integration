@@ -16,17 +16,14 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    sudo npm install -g aws-cdk
-    npm install
-    npm run build
-    cdk synth
+    ls -l
   displayName: 'npm install and build'
 - task: AWSShellScript@1
   inputs:
     awsCredentials: 'AWSReadOnly'
     regionName: 'us-east-1'
     scriptType: 'inline'
-    inlineScript: 'ls'
+    inlineScript: 'aws cloudformation create-stack --stack-name myteststack --template-body file://s3.yaml'
     disableAutoCwd: true
     workingDirectory: '$(System.DefaultWorkingDirectory)'
     failOnStandardError: false
