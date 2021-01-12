@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+    AWS S3 Bucket replication
+Metadata:
+  QuickStartDocumentation:
+    EntrypointName: AWS S3 Replication
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: AWS Environment Details
+        Parameters:
+          - StackEnv
+          
+    ParameterLabels:
+      StackEnv:
+        default: Name of the Environment
+
+Parameters:
+  StackEnv:
+    AllowedValues:
+      - demo
+      - training
+      - workshop
+      - dev
+      - test
+      - stage
+      - production
+    Default: training
+    Description: Name of the AWS Environment
+    Type: String
+
+Resources:
+  ReplicationDestinationBucket:
+    Type: AWS::S3::Bucket
+    Description: AWS S3 Bucket Replication
+    DeletionPolicy: Delete
+    Properties:
+      BucketName: !Sub "${StackEnv}-replication-destination-bucket"
+      AccessControl: Private
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+Outputs:      
+  ReplicationSourceBucket:
+    Value: !Ref ReplicationSourceBucket
+    Description: Name of the sample Amazon Source S3 bucket
+    Export:
+      Name: !Sub '${AWS::StackName}-ReplicationSourceBucket'
+
+  ReplicationSourceBucketARN:
+    Value: !GetAtt ReplicationSourceBucket.Arn
+    Description: Name of the sample Amazon Source S3 bucket ARN
+    Export:
+      Name: !Sub '${AWS::StackName}-ReplicationSourceBucketArn'
