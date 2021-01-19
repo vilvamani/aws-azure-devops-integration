@@ -115,7 +115,8 @@
                 "Runtime": "python3.7",
                 "Timeout": 300,
                 "Code": {
-                    "ZipFile": "import boto3\nfrom json import dumps, loads, decoder\nfrom os import environ\n\nSQS_QUEUE_URL = environ[\"SQS_QUEUE_URL\"]\nAWS_DEFAULT_REGION = environ[\"AWS_DEFAULT_REGION\"]\n\nsqs_client = boto3.client('sqs', region_name=AWS_DEFAULT_REGION)\n\ndef send_sqs_message(message):\n  try:\n    response = sqs_client.send_message(QueueUrl=SQS_QUEUE_URL, MessageBody=message)\n\n    print(\"Message sent Successfully ::: {}\".format(response))\n    return True\n  except Exception as error:\n    raise error\n\ndef lambda_handler(event, context):\n  sqs_message = \"\"\n\n  try:\n    data = {}\n    data['wItemId'] = event['queryStringParameters']['wItemId']\n    data['event'] = event['queryStringParameters']['event']\n    data['aws_request_id'] = context.aws_request_id\n    data['rootDomainId'] = 209\n    sqs_message = dumps(data)\n\n  except KeyError as error:\n    print(\"Key Not Found in Query Parameters  ::: {}\".format(error))\n    return {\n      'statusCode': 400,\n      'body': dumps(\"Key Not Found in Query Parameters  ::: {}\".format(error))\n    }\n\n  except TypeError as error:\n    print(\"Query String Parameters Error ::: {}\".format(error))\n    return {\n      'statusCode': 400,\n      'body': dumps('Missing Query String Parameter')\n    }\n    \n  except Exception as error:\n    print(\"Exception ::: {}\".format(error))\n    return {\n      'statusCode': 400,\n      'body': dumps('Missing Parameter')\n    }\n  \n  # Calling SQS Send Message function\n  send_sqs_message(sqs_message)\n\n  return {\n    'statusCode': 200,\n    'body': dumps('Ok')\n  }\n"
+                    "S3Bucket": "",
+                    "S3Key": "mylambda/"
                 }
             }
         }
