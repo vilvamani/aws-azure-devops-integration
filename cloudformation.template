@@ -89,12 +89,7 @@
                                         "sqs:SendMessageBatch",
                                         "sqs:SetQueueAttributes"
                                     ],
-                                    "Resource": {
-                                        "Fn::GetAtt": [
-                                            "DestinationQueue",
-                                            "Arn"
-                                        ]
-                                    }
+                                    "Resource": "*"
                                 }
                             ]
                         }
