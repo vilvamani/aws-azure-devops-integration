@@ -106,13 +106,6 @@
             "Type": "AWS::Lambda::Function",
             "Properties": {
                 "Description": "API Gateway to SQS Lambda",
-                "Environment": {
-                    "Variables": {
-                        "SQS_QUEUE_URL": {
-                            "Fn::Sub": "https://sqs.${AWS::Region}.amazonaws.com/${AWS::AccountId}/${StackEnv}-${SQSQueueName}"
-                        }
-                    }
-                },
                 "FunctionName": {
                     "Fn::Sub": "${StackEnv}-apigateway-sqs-lambda"
                 },
